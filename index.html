@@ -5,605 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MA GYM</title>
   <meta name="description" content="MA GYM - Simple. Efficace. Fitness." />
-  <style>
-    :root {
-      --bg: #f5f7fb;
-      --surface: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --line: #dbe3ef;
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --success: #16a34a;
-      --warning: #f59e0b;
-      --shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
-      --radius: 18px;
-      --radius-sm: 12px;
-      --max: 1180px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.5;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    button, input, select, textarea {
-      font: inherit;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(219, 227, 239, 0.8);
-    }
-
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      font-size: 1.1rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      font-size: 0.95rem;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 10px;
-      transition: 0.2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--primary);
-      background: rgba(37, 99, 235, 0.08);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 88vh;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      color: white;
-      background:
-        linear-gradient(rgba(15, 23, 42, 0.60), rgba(15, 23, 42, 0.60)),
-        url('assets/fond_home.jpg') center/cover no-repeat;
-    }
-
-    .hero-content {
-      text-align: center;
-      width: min(760px, calc(100% - 32px));
-      padding: 72px 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,0.28);
-      background: rgba(255,255,255,0.08);
-      border-radius: 999px;
-      font-size: 0.92rem;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(2.7rem, 6vw, 5rem);
-      line-height: 0.95;
-      font-weight: 900;
-    }
-
-    .hero p {
-      margin: 18px auto 0;
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: rgba(255,255,255,0.92);
-      max-width: 650px;
-    }
-
-    .hero-actions {
-      margin-top: 28px;
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: 0;
-      cursor: pointer;
-      min-height: 48px;
-      padding: 0 20px;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--primary-dark); }
-
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.55);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .btn-light {
-      background: #eef2ff;
-      color: var(--primary);
-    }
-
-    .quick-info {
-      margin-top: 22px;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      font-size: 0.92rem;
-    }
-
-    section {
-      padding: 80px 0;
-      scroll-margin-top: 90px;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin-bottom: 26px;
-      flex-wrap: wrap;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1;
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    .service-grid,
-    .testimonial-grid,
-    .persona-grid,
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .service-card {
-      grid-column: span 6;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .service-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: start;
-    }
-
-    .service-card h3,
-    .testimonial-card h3,
-    .persona-card h3,
-    .reservation-panel h3,
-    .mini-card h3 {
-      margin: 0;
-      font-size: 1.3rem;
-    }
-
-    .price {
-      font-weight: 800;
-      color: var(--primary);
-      font-size: 1.35rem;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-      border-radius: 999px;
-      padding: 7px 11px;
-      background: #eff6ff;
-      color: var(--primary);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    .service-details {
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .bullet-list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text);
-    }
-
-    .bullet-list li + li { margin-top: 6px; }
-
-    .service-footer {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .section-note {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: 14px;
-      background: #fff;
-      border: 1px dashed var(--line);
-      color: var(--muted);
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .reservation-panel,
-    .summary-panel,
-    .contact-card,
-    .location-card,
-    .mini-card,
-    .testimonial-card,
-    .persona-card {
-      padding: 22px;
-    }
-
-    .progress {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #cbd5e1;
-    }
-
-    .dot.active { background: var(--primary); }
-
-    .step-label {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .reservation-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .choice-btn,
-    .family-card {
-      min-height: 72px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: white;
-      cursor: pointer;
-      padding: 14px;
-      text-align: left;
-      transition: 0.2s ease;
-    }
-
-    .choice-btn strong,
-    .family-card strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-
-    .choice-btn span,
-    .family-card span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .choice-btn:hover,
-    .family-card:hover,
-    .choice-btn.selected,
-    .family-card.selected {
-      border-color: var(--primary);
-      background: #eff6ff;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.09);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .field label {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: #334155;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      min-height: 48px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 14px;
-      background: white;
-      color: var(--text);
-    }
-
-    textarea { min-height: 140px; resize: vertical; }
-
-    .step-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-    }
-
-    .muted-btn {
-      background: #f8fafc;
-      color: var(--muted);
-      border: 1px solid var(--line);
-    }
-
-    .summary-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-    }
-
-    .summary-item span:first-child { color: var(--muted); }
-    .summary-item strong { text-align: right; }
-
-    .pill-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .pill {
-      background: #ecfeff;
-      color: #0f766e;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    .mini-stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .mini-card p,
-    .testimonial-card p,
-    .persona-card p,
-    .location-meta p,
-    .contact-card p { color: var(--muted); }
-
-    .testimonial-card {
-      grid-column: span 4;
-    }
-
-    .stars {
-      letter-spacing: 0.1em;
-      color: var(--warning);
-      font-size: 1rem;
-    }
-
-    .persona-card { grid-column: span 6; }
-
-    .persona-highlight {
-      margin-top: 12px;
-      padding: 14px;
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-    }
-
-    .location-layout,
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .location-card iframe {
-      width: 100%;
-      min-height: 420px;
-      border: 0;
-      border-radius: 16px;
-    }
-
-    .location-meta {
-      display: grid;
-      gap: 14px;
-    }
-
-    .info-block {
-      padding: 16px;
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid var(--line);
-    }
-
-    .info-block strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--primary);
-    }
-
-    .contact-form-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .footer {
-      padding: 28px 0 48px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    .hidden { display: none !important; }
-
-    .success-screen {
-      text-align: center;
-      padding: 28px 8px 10px;
-    }
-
-    .success-badge {
-      width: 72px;
-      height: 72px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 18px;
-      background: #dcfce7;
-      color: var(--success);
-      font-size: 2rem;
-      font-weight: 900;
-    }
-
-    .kbd {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      padding: 3px 8px;
-      border-radius: 8px;
-      background: #e2e8f0;
-      font-size: 0.82rem;
-    }
-
-    @media (max-width: 980px) {
-      .service-card,
-      .testimonial-card,
-      .persona-card { grid-column: span 12; }
-
-      .two-col,
-      .location-layout,
-      .contact-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .nav { padding: 12px 0; align-items: flex-start; }
-      .nav-links { gap: 8px; }
-      .choice-grid,
-      .form-grid { grid-template-columns: 1fr; }
-      .hero { min-height: 78vh; }
-      section { padding: 60px 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="container nav">
       <a href="#accueil" class="brand">MA GYM</a>
-      <nav class="nav-links" aria-label="Navigation principale">
+      <nav class="nav-links">
         <a href="#accueil" class="active">Accueil</a>
         <a href="#services">Services</a>
         <a href="#reservation">Réserver</a>
@@ -616,132 +24,81 @@
   <main>
     <section id="accueil" class="hero">
       <div class="hero-content">
-        <div class="eyebrow">Ouvert 7j/7 • 06h à 23h</div>
+        <p class="badge">Ouvert 7j/7 • 06h à 23h</p>
         <h1>MA GYM</h1>
-        <p>Simple. Efficace. Fitness. Une salle claire, rassurante et rapide à utiliser, pensée pour les débutants, les actifs pressés et les familles.</p>
+        <p class="subtitle">Simple. Efficace. Fitness.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#reservation">Réserver →</a>
-          <a class="btn btn-secondary" href="#services">Services</a>
-        </div>
-        <div class="quick-info">
-          <span class="chip">Créneau express avant le travail</span>
-          <span class="chip">Forfait famille disponible</span>
-          <span class="chip">Cours doux : Yoga & Pilates</span>
+          <a href="#reservation" class="btn primary">Réserver</a>
+          <a href="#services" class="btn secondary">Services</a>
         </div>
       </div>
     </section>
 
-    <section id="services">
+    <section id="services" class="section">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Nos services</h2>
-          </div>
+        <h2>Nos Services</h2>
+
+        <div class="cards">
+          <article class="card">
+            <h3>Accès Libre</h3>
+            <p class="price">29€/mois</p>
+            <p>Musculation & Cardio</p>
+            <ul>
+              <li>Accès illimité</li>
+              <li>Visite d’accueil</li>
+              <li>Fiche débutant incluse</li>
+            </ul>
+            <button class="btn light reserve-service" data-service="Accès Libre">Réserver</button>
+          </article>
+
+          <article class="card">
+            <h3>Cours Groupe</h3>
+            <p class="price">49€/mois</p>
+            <p>Yoga, HIIT, Pilates</p>
+            <ul>
+              <li>Idéal reprise en douceur</li>
+              <li>Ambiance guidée</li>
+              <li>Faible impact</li>
+            </ul>
+            <button class="btn light reserve-service" data-service="Cours Groupe">Réserver</button>
+          </article>
+
+          <article class="card">
+            <h3>Coaching</h3>
+            <p class="price">60€/séance</p>
+            <p>Suivi 100% personnalisé</p>
+            <ul>
+              <li>Séance individuelle</li>
+              <li>Programme adapté</li>
+              <li>Progression encadrée</li>
+            </ul>
+            <button class="btn light reserve-service" data-service="Coaching">Réserver</button>
+          </article>
+
+          <article class="card">
+            <h3>Bilan Forme</h3>
+            <p class="price">35€</p>
+            <p>Analyse complète</p>
+            <ul>
+              <li>Évaluation de départ</li>
+              <li>Orientation personnalisée</li>
+              <li>Idéal pour débuter</li>
+            </ul>
+            <button class="btn light reserve-service" data-service="Bilan Forme">Réserver</button>
+          </article>
         </div>
-
-        <div class="service-grid">
-          <article class="card service-card">
-            <div class="service-top">
-              <div>
-                <div class="tag">Le plus flexible</div>
-                <h3>Accès Libre</h3>
-              </div>
-              <div class="price">29€/mois</div>
-            </div>
-            <p class="service-details">Musculation & cardio en autonomie, idéal pour les utilisateurs qui veulent aller droit au but.</p>
-            <ul class="bullet-list">
-              <li>Accès illimité aux machines sur les horaires d’ouverture</li>
-              <li>Visite d’accueil + explication rapide des zones</li>
-              <li>Fiche de démarrage débutant incluse</li>
-              <li>Coaching individuel non inclus</li>
-            </ul>
-            <div class="service-footer">
-              <span class="chip" style="background:#eff6ff;border-color:#dbeafe;color:#1d4ed8;">06h–23h • 7j/7</span>
-              <button class="btn btn-light reserve-service" data-service="Accès Libre">Réserver</button>
-            </div>
-          </article>
-
-          <article class="card service-card">
-            <div class="service-top">
-              <div>
-                <div class="tag">Faible impact</div>
-                <h3>Cours Groupe</h3>
-              </div>
-              <div class="price">49€/mois</div>
-            </div>
-            <p class="service-details">Yoga, HIIT doux et Pilates. C’est l’offre la plus adaptée aux personnes qui reprennent le sport.</p>
-            <ul class="bullet-list">
-              <li>3 à 5 créneaux hebdomadaires selon le planning</li>
-              <li>Ambiance encadrée et rassurante pour débutants</li>
-              <li>Recommandé pour Marc : reprise progressive</li>
-              <li>Accès libre en dehors des cours non inclus</li>
-            </ul>
-            <div class="service-footer">
-              <span class="chip" style="background:#f0fdf4;border-color:#dcfce7;color:#15803d;">Yoga & Pilates</span>
-              <button class="btn btn-light reserve-service" data-service="Cours Groupe">Réserver</button>
-            </div>
-          </article>
-
-          <article class="card service-card">
-            <div class="service-top">
-              <div>
-                <div class="tag">Sur mesure</div>
-                <h3>Coaching</h3>
-              </div>
-              <div class="price">60€/séance</div>
-            </div>
-            <p class="service-details">Accompagnement personnalisé pour aller plus vite, mieux comprendre les exercices et progresser sans se blesser.</p>
-            <ul class="bullet-list">
-              <li>Bilan objectif + séance 1:1</li>
-              <li>Programme adapté au niveau et aux contraintes</li>
-              <li>Convient aux débutants qui veulent être guidés</li>
-              <li>Plan alimentaire non inclus</li>
-            </ul>
-            <div class="service-footer">
-              <span class="chip" style="background:#fff7ed;border-color:#fed7aa;color:#c2410c;">Accompagnement dédié</span>
-              <button class="btn btn-light reserve-service" data-service="Coaching">Réserver</button>
-            </div>
-          </article>
-
-          <article class="card service-card">
-            <div class="service-top">
-              <div>
-                <div class="tag">Décision rapide</div>
-                <h3>Bilan Forme</h3>
-              </div>
-              <div class="price">35€</div>
-            </div>
-            <p class="service-details">Analyse initiale pour évaluer le niveau, clarifier les objectifs et choisir le bon parcours avant de s’engager.</p>
-            <ul class="bullet-list">
-              <li>Entretien de départ + conseils d’orientation</li>
-              <li>Recommandation de formule adaptée</li>
-              <li>Utile pour les personnes intimidées par la salle</li>
-              <li>Ne remplace pas un suivi médical</li>
-            </ul>
-            <div class="service-footer">
-              <span class="chip" style="background:#faf5ff;border-color:#e9d5ff;color:#7e22ce;">Idéal pour débuter</span>
-              <button class="btn btn-light reserve-service" data-service="Bilan Forme">Réserver</button>
-            </div>
-          </article>
-        </div>>
       </div>
     </section>
 
-
-    <section id="reservation">
+    <section id="reservation" class="section">
       <div class="container">
-        <div class="section-head">
-          <div><h2>Réservation</h2></div>
-        </div>
+        <h2>Réservation</h2>
 
-        <div class="two-col">
-          <article class="card reservation-panel">
-            <div class="reservation-header">
-              <div>
-                <div class="step-label">Processus guidé</div>
-                <h3 id="stepTitle">Choisissez votre activité</h3>
-              </div>
-              <div class="progress" aria-label="Progression">
+        <div class="reservation-layout">
+          <div class="panel">
+            <div class="panel-top">
+              <h3 id="stepTitle">Choisissez votre activité</h3>
+              <div class="dots">
                 <span class="dot active"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -749,72 +106,48 @@
             </div>
 
             <div id="step1">
-              <div class="choice-grid" id="serviceChoiceGrid">
-                <button class="choice-btn selected" data-value="Accès Libre" type="button">
-                  <strong>Accès Libre</strong>
-                  <span>29€/mois • autonomie</span>
-                </button>
-                <button class="choice-btn" data-value="Cours Groupe" type="button">
-                  <strong>Cours Groupe</strong>
-                  <span>49€/mois • yoga/pilates</span>
-                </button>
-                <button class="choice-btn" data-value="Coaching" type="button">
-                  <strong>Coaching</strong>
-                  <span>60€/séance • individuel</span>
-                </button>
-                <button class="choice-btn" data-value="Bilan Forme" type="button">
-                  <strong>Bilan Forme</strong>
-                  <span>35€ • orientation</span>
-                </button>
+              <div class="grid2" id="serviceChoices">
+                <button class="choice selected" data-value="Accès Libre">Accès Libre</button>
+                <button class="choice" data-value="Cours Groupe">Cours Groupe</button>
+                <button class="choice" data-value="Coaching">Coaching</button>
+                <button class="choice" data-value="Bilan Forme">Bilan Forme</button>
               </div>
 
-              <div class="field">
-                <label>Options famille (persona Marc)</label>
-                <div class="choice-grid" id="familyChoiceGrid">
-                  <button class="family-card selected" data-members="1" type="button">
-                    <strong>Solo</strong>
-                    <span>1 adulte</span>
-                  </button>
-                  <button class="family-card" data-members="3" type="button">
-                    <strong>Forfait famille</strong>
-                    <span>1 adulte + 2 adolescents</span>
-                  </button>
-                </div>
+              <div class="grid2" id="familyChoices">
+                <button class="choice selected" data-members="1">Solo</button>
+                <button class="choice" data-members="3">Forfait famille</button>
               </div>
 
-              <div class="field">
-                <label for="goalSelect">Objectif principal</label>
-                <select id="goalSelect">
-                  <option>Reprise en douceur</option>
-                  <option>Perte de poids</option>
-                  <option>Tonification</option>
-                  <option>Découverte de la salle</option>
-                </select>
-              </div>
+              <label>Objectif</label>
+              <select id="goal">
+                <option>Reprise en douceur</option>
+                <option>Perte de poids</option>
+                <option>Tonification</option>
+                <option>Découverte</option>
+              </select>
 
-              <div class="step-actions">
-                <span class="step-label">Étape 1 sur 3</span>
-                <button class="btn btn-primary" id="toStep2" type="button">Suivant</button>
+              <div class="actions right">
+                <button class="btn primary" id="toStep2">Suivant</button>
               </div>
             </div>
 
             <div id="step2" class="hidden">
-              <div class="form-grid">
-                <div class="field">
-                  <label for="fullName">Nom complet</label>
-                  <input id="fullName" type="text" placeholder="Votre nom" />
+              <div class="grid2">
+                <div>
+                  <label>Nom complet</label>
+                  <input id="name" type="text" placeholder="Votre nom" />
                 </div>
-                <div class="field">
-                  <label for="email">Email</label>
+                <div>
+                  <label>Email</label>
                   <input id="email" type="email" placeholder="vous@email.com" />
                 </div>
-                <div class="field">
-                  <label for="bookingDate">Date</label>
-                  <input id="bookingDate" type="date" />
+                <div>
+                  <label>Date</label>
+                  <input id="date" type="date" />
                 </div>
-                <div class="field">
-                  <label for="bookingTime">Heure</label>
-                  <select id="bookingTime">
+                <div>
+                  <label>Heure</label>
+                  <select id="time">
                     <option>06:30</option>
                     <option>08:00</option>
                     <option selected>10:00</option>
@@ -825,317 +158,119 @@
                 </div>
               </div>
 
-              <div class="field">
-                <label for="notes">Préférences (optionnel)</label>
-                <input id="notes" type="text" placeholder="Ex. débutant, yoga préféré, venue avec mes enfants..." />
-              </div>
-
-              <div class="step-actions">
-                <button class="btn muted-btn" id="backTo1" type="button">Retour</button>
-                <button class="btn btn-primary" id="toStep3" type="button">Voir le récapitulatif</button>
+              <div class="actions between">
+                <button class="btn muted" id="back1">Retour</button>
+                <button class="btn primary" id="toStep3">Suivant</button>
               </div>
             </div>
 
             <div id="step3" class="hidden">
-              <div class="summary-list" id="reviewList"></div>
+              <div id="review" class="summary-list"></div>
 
-              <div class="step-actions">
-                <button class="btn muted-btn" id="backTo2" type="button">Retour</button>
-                <button class="btn btn-primary" id="confirmBooking" type="button">Confirmer</button>
+              <div class="actions between">
+                <button class="btn muted" id="back2">Retour</button>
+                <button class="btn primary" id="confirm">Confirmer</button>
               </div>
             </div>
 
-            <div id="successScreen" class="hidden success-screen">
-              <div class="success-badge">✓</div>
-              <h3>Réservation confirmée</h3>
-              <p>Le détail de votre réservation reste affiché à droite. Cette amélioration corrige le manque de contexte dans l’écran final initial.</p>
-              <div class="step-actions" style="justify-content:center; margin-top:18px;">
-                <a href="#accueil" class="btn muted-btn">Retour accueil</a>
-              </div>
+            <div id="success" class="hidden success">
+              <div class="check">✓</div>
+              <h3>Confirmé !</h3>
+              <p>À bientôt chez MA GYM.</p>
+              <a href="#accueil" class="btn muted">Retour Accueil</a>
             </div>
-          </article>
+          </div>
 
-          <div class="mini-stack">
-            <article class="card summary-panel mini-card">
-              <div class="step-label">Récapitulatif dynamique</div>
-              <h3>Votre sélection</h3>
-              <div class="summary-list">
-                <div class="summary-item"><span>Activité</span><strong id="summaryService">Accès Libre</strong></div>
-                <div class="summary-item"><span>Formule</span><strong id="summaryFamily">Solo</strong></div>
-                <div class="summary-item"><span>Date</span><strong id="summaryDate">À définir</strong></div>
-                <div class="summary-item"><span>Heure</span><strong id="summaryTime">10:00</strong></div>
-                <div class="summary-item"><span>Objectif</span><strong id="summaryGoal">Reprise en douceur</strong></div>
-                <div class="summary-item"><span>Tarif estimé</span><strong id="summaryPrice">29€</strong></div>
-              </div>
-            </article>
+          <div class="panel side">
+            <h3>Votre sélection</h3>
+            <div class="summary-list">
+              <div class="summary-row"><span>Activité</span><strong id="sumService">Accès Libre</strong></div>
+              <div class="summary-row"><span>Formule</span><strong id="sumFamily">Solo</strong></div>
+              <div class="summary-row"><span>Date</span><strong id="sumDate">À définir</strong></div>
+              <div class="summary-row"><span>Heure</span><strong id="sumTime">10:00</strong></div>
+              <div class="summary-row"><span>Objectif</span><strong id="sumGoal">Reprise en douceur</strong></div>
+              <div class="summary-row"><span>Tarif</span><strong id="sumPrice">29€</strong></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="avis">
+    <section id="avis" class="section">
       <div class="container">
-        <div class="section-head">
-          <div><h2>Avis & témoignages</h2></div>
-          <p>Cette section répond directement au besoin de Marc : voir des retours de clients débutants avant de s’engager.</p>
-        </div>
-        <div class="testimonial-grid">
-          <article class="card testimonial-card">
-            <div class="stars">★★★★★</div>
+        <h2>Avis & témoignages</h2>
+        <div class="cards three">
+          <article class="card">
+            <p class="stars">★★★★★</p>
             <h3>Claire, débutante</h3>
-            <p>“Je n’avais pas remis les pieds dans une salle depuis 8 ans. Le bilan forme m’a aidée à choisir sans stress.”</p>
+            <p>Le bilan m’a aidée à choisir sans stress.</p>
           </article>
-          <article class="card testimonial-card">
-            <div class="stars">★★★★★</div>
+          <article class="card">
+            <p class="stars">★★★★★</p>
             <h3>Marc, 45 ans</h3>
-            <p>“Le forfait famille m’a permis de venir avec mes deux ados. Le format Yoga/Pilates m’a remis en confiance.”</p>
+            <p>Le forfait famille m’a permis de venir avec mes deux ados.</p>
           </article>
-          <article class="card testimonial-card">
-            <div class="stars">★★★★☆</div>
-            <h3>Sara, reprise progressive</h3>
-            <p>“J’ai enfin compris ce qui est inclus dans chaque offre. Avant, c’était trop vague pour décider vite.”</p>
+          <article class="card">
+            <p class="stars">★★★★☆</p>
+            <h3>Sara</h3>
+            <p>Les services sont enfin clairs et faciles à comparer.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="localisation">
+    <section id="localisation" class="section">
       <div class="container">
-        <div class="section-head">
-          <div><h2>Localisation</h2></div>
-        </div>
-        <div class="location-layout">
-          <article class="card location-card">
+        <h2>Localisation</h2>
+
+        <div class="location">
+          <div class="panel info">
+            <div class="info-box">
+              <strong>Adresse</strong>
+              <p>123 Rideau Street<br>Ottawa, ON K1N 5X2</p>
+            </div>
+            <div class="info-box">
+              <strong>Horaires</strong>
+              <p>06h - 23h (7j/7)</p>
+            </div>
+            <div class="info-box">
+              <strong>Contact</strong>
+              <p>+1 613-555-0123</p>
+            </div>
+          </div>
+
+          <div class="panel map">
             <iframe
               title="Carte MA GYM"
               src="https://www.openstreetmap.org/export/embed.html?bbox=-75.6845%2C45.4220%2C-75.6770%2C45.4270&layer=mapnik&marker=45.4245%2C-75.6805">
             </iframe>
-          </article>
-          <article class="card mini-card">
-            <div class="location-meta">
-              <div class="info-block">
-                <strong>Adresse</strong>
-                <p>123 Rideau Street<br>Ottawa, ON K1N 5X2</p>
-              </div>
-              <div class="info-block">
-                <strong>Horaires</strong>
-                <p>06h – 23h, 7j/7</p>
-              </div>
-              <div class="info-block">
-                <strong>Contact</strong>
-                <p>+1 613-555-0123</p>
-              </div>
-              <div class="info-block">
-                <strong>Conseil rapide</strong>
-                <p>Si vous voulez un créneau calme, privilégiez <span class="kbd">06:30</span> ou <span class="kbd">10:00</span>.</p>
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="section">
       <div class="container">
-        <div class="section-head">
-          <div><h2>Contact rapide</h2></div>
-        </div>
-        <div class="contact-layout">
-          <article class="card contact-card">
-            <h3>Une question avant de réserver ?</h3>
-            <p>Utilisez ce formulaire vitrine pour simuler une prise de contact sur GitHub Pages. Aucune donnée n’est envoyée.</p>
-            <div class="contact-form-grid">
-              <div class="field">
-                <label for="contactEmail">Votre email</label>
-                <input id="contactEmail" type="email" placeholder="exemple@email.com" />
-              </div>
-              <div class="field">
-                <label for="contactTopic">Sujet</label>
-                <select id="contactTopic">
-                  <option>Question générale</option>
-                  <option>Forfait famille</option>
-                  <option>Débuter sans expérience</option>
-                  <option>Horaires et disponibilité</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="contactMessage">Message</label>
-                <textarea id="contactMessage" placeholder="Votre message..."></textarea>
-              </div>
-              <button class="btn btn-primary" type="button">Envoyer</button>
-            </div>
-          </article>
+        <h2>Contact</h2>
 
+        <div class="contact-center">
+          <div class="panel contact-card">
+            <h3>Contact Rapide</h3>
+            <input type="email" placeholder="Votre Email" />
+            <select>
+              <option>Question générale</option>
+              <option>Forfait famille</option>
+              <option>Débuter sans expérience</option>
+              <option>Horaires</option>
+            </select>
+            <textarea placeholder="Votre message..."></textarea>
+            <button class="btn primary">Envoyer</button>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-
-
-  <script>
-    const pricing = {
-      'Accès Libre': 29,
-      'Cours Groupe': 49,
-      'Coaching': 60,
-      'Bilan Forme': 35
-    };
-
-    const state = {
-      service: 'Accès Libre',
-      familyMembers: 1,
-      goal: 'Reprise en douceur',
-      name: '',
-      email: '',
-      date: '',
-      time: '10:00',
-      notes: ''
-    };
-
-    const steps = [
-      document.getElementById('step1'),
-      document.getElementById('step2'),
-      document.getElementById('step3')
-    ];
-    const dots = Array.from(document.querySelectorAll('.dot'));
-    const stepTitle = document.getElementById('stepTitle');
-    const successScreen = document.getElementById('successScreen');
-
-    const labels = [
-      'Choisissez votre activité',
-      'Vos coordonnées',
-      'Vérifiez votre récapitulatif'
-    ];
-
-    function currentPrice() {
-      const base = pricing[state.service] || 0;
-      if (state.familyMembers === 3) {
-        return Math.round(base * 2.2);
-      }
-      return base;
-    }
-
-    function familyLabel() {
-      return state.familyMembers === 3 ? 'Forfait famille (1 adulte + 2 ados)' : 'Solo';
-    }
-
-    function updateSummary() {
-      document.getElementById('summaryService').textContent = state.service;
-      document.getElementById('summaryFamily').textContent = familyLabel();
-      document.getElementById('summaryDate').textContent = state.date || 'À définir';
-      document.getElementById('summaryTime').textContent = state.time || '10:00';
-      document.getElementById('summaryGoal').textContent = state.goal;
-      document.getElementById('summaryPrice').textContent = currentPrice() + '€';
-
-      const reviewList = document.getElementById('reviewList');
-      reviewList.innerHTML = `
-        <div class="summary-item"><span>Activité</span><strong>${state.service}</strong></div>
-        <div class="summary-item"><span>Formule</span><strong>${familyLabel()}</strong></div>
-        <div class="summary-item"><span>Nom</span><strong>${state.name || 'Non renseigné'}</strong></div>
-        <div class="summary-item"><span>Email</span><strong>${state.email || 'Non renseigné'}</strong></div>
-        <div class="summary-item"><span>Date</span><strong>${state.date || 'À définir'}</strong></div>
-        <div class="summary-item"><span>Heure</span><strong>${state.time || '10:00'}</strong></div>
-        <div class="summary-item"><span>Objectif</span><strong>${state.goal}</strong></div>
-        <div class="summary-item"><span>Notes</span><strong>${state.notes || 'Aucune'}</strong></div>
-        <div class="summary-item"><span>Tarif estimé</span><strong>${currentPrice()}€</strong></div>
-      `;
-    }
-
-    function goToStep(index) {
-      steps.forEach((step, i) => step.classList.toggle('hidden', i !== index));
-      dots.forEach((dot, i) => dot.classList.toggle('active', i <= index));
-      stepTitle.textContent = labels[index];
-      successScreen.classList.add('hidden');
-      updateSummary();
-    }
-
-    document.querySelectorAll('#serviceChoiceGrid .choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#serviceChoiceGrid .choice-btn').forEach(el => el.classList.remove('selected'));
-        btn.classList.add('selected');
-        state.service = btn.dataset.value;
-        updateSummary();
-      });
-    });
-
-    document.querySelectorAll('.reserve-service').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.service;
-        const match = document.querySelector(`#serviceChoiceGrid .choice-btn[data-value="${target}"]`);
-        if (match) match.click();
-        document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    document.querySelectorAll('#familyChoiceGrid .family-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#familyChoiceGrid .family-card').forEach(el => el.classList.remove('selected'));
-        btn.classList.add('selected');
-        state.familyMembers = Number(btn.dataset.members);
-        updateSummary();
-      });
-    });
-
-    document.getElementById('goalSelect').addEventListener('change', (e) => {
-      state.goal = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('fullName').addEventListener('input', (e) => {
-      state.name = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('email').addEventListener('input', (e) => {
-      state.email = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('bookingDate').addEventListener('change', (e) => {
-      state.date = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('bookingTime').addEventListener('change', (e) => {
-      state.time = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('notes').addEventListener('input', (e) => {
-      state.notes = e.target.value;
-      updateSummary();
-    });
-
-    document.getElementById('toStep2').addEventListener('click', () => goToStep(1));
-    document.getElementById('backTo1').addEventListener('click', () => goToStep(0));
-    document.getElementById('toStep3').addEventListener('click', () => goToStep(2));
-    document.getElementById('backTo2').addEventListener('click', () => goToStep(1));
-
-    document.getElementById('confirmBooking').addEventListener('click', () => {
-      steps.forEach(step => step.classList.add('hidden'));
-      dots.forEach(dot => dot.classList.add('active'));
-      stepTitle.textContent = 'Confirmation';
-      successScreen.classList.remove('hidden');
-      updateSummary();
-    });
-
-    const sections = Array.from(document.querySelectorAll('main section[id]'));
-    const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
-
-    function setActiveLink() {
-      const scrollY = window.scrollY + 120;
-      let current = 'accueil';
-      sections.forEach(section => {
-        if (scrollY >= section.offsetTop) current = section.id;
-      });
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-      });
-    }
-
-    window.addEventListener('scroll', setActiveLink, { passive: true });
-    setActiveLink();
-    updateSummary();
-  </script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
